@@ -13,9 +13,9 @@ import java.util.Collection;
 public class MyClientHandler implements ClientHandler
 {
 
-    private CacheManager<Matrix,String> CacheManager;
+    private CacheManager<String,String> CacheManager;
 
-    public MyClientHandler(CacheManager<Matrix,String> CacheManager)
+    public MyClientHandler(CacheManager<String,String> CacheManager)
     {
         this.CacheManager=CacheManager;
     }
@@ -49,10 +49,11 @@ public class MyClientHandler implements ClientHandler
             Matrix matrix = new Matrix(matrixInts, enteryIndex, exitIndex);
             String solution=null;
             boolean flag = false;
-            if(CacheManager.isSolutionExist(matrix))
+            String matHash = matrix.getHashOfMatrix();
+            if(CacheManager.isSolutionExist(matHash))
             {
                 try {
-                    solution = CacheManager.getSolution(matrix);
+                    solution = CacheManager.getSolution(matHash);
                     flag=true;
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
@@ -85,7 +86,7 @@ public class MyClientHandler implements ClientHandler
                         stringBuilder.append(",");
                 }
                 solution= stringBuilder.toString();
-                CacheManager.saveSolution(matrix, solution);
+                CacheManager.saveSolution(matHash, solution);
             }else {
 
             }

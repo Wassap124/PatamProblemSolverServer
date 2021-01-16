@@ -80,4 +80,15 @@ public class Matrix implements GoalSearchable<Index>
     public State<Index> getGoalState() {
         return new State<>(exitIndex,0,null);
     }
+
+    public String getHashOfMatrix() {
+    	String matStr = "s_" + this.enteryIndex.row + "," + this.enteryIndex.column +
+    			"e_" + this.exitIndex.row + "," + this.exitIndex.column + "v_";
+    	for(int i = 0; i < this.matrix.length; i++) {
+    		for(int j = 0; j < this.matrix[0].length; j++) {
+    			matStr = matStr + this.matrix[i][j];
+    		}
+    	}
+    	return matStr.hashCode() + "";
+    }
 }
